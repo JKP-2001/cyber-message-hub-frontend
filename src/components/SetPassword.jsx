@@ -18,7 +18,7 @@ const SetPassword = (props) => {
                 props.showAlert("success","Your Password Has Been Successfully Setted.",5000)
             }
             if(x==400){
-                props.showAlert("danger","User Already Existed",5000)
+                props.showAlert("danger","Link Already Used",5000)
             }
             
             setpassword({ password: "", Cpassword: "" });

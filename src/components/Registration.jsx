@@ -22,7 +22,7 @@ const Register = (props) => {
     }
     else{
       if(x===400){
-        props.showAlert("danger","Link Already UsedS",5000);
+        props.showAlert("danger","Link Already Used",5000);
       }
       else if( x===401){
         props.showAlert("danger","Email Id Already Registered",5000);
