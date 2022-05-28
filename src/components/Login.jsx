@@ -49,8 +49,8 @@ const Login = (props) => {
         </div>
 
         <button type="submit" className="btn btn-primary" onClick={submit} disabled={cred.email.length == 0 || cred.password.length <8 ?true:false }>Submit</button>
-        <small id="emailHelp" className="form-text text-muted my-3">Forgot Password?<Link className="mx-2" to="/resetpassword" role="button">Click Here</Link></small>
-        <small id="emailHelp" className="form-text text-muted my-3">Have No Account?<Link className="mx-2" to="/register" role="button">Click Here</Link></small>
+        <small id="emailHelp" className="form-text text-muted ">Forgot Password?<Link className="mx-2" to="/resetpassword" role="button">Click Here</Link></small>
+        <small id="emailHelp" className="form-text text-muted ">Have No Account?<Link className="mx-2" to="/register" role="button">Click Here</Link></small>
       </form>
     </div>
   )
