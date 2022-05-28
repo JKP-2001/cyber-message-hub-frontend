@@ -10,9 +10,9 @@ const AuthState = (props) => {
     //     setUser(value);
     // }
 
-    // const url = "https://cross-origin-web.herokuapp.com";
+    const url = "https://cross-origin-web.herokuapp.com";
 
-    const url = "http://localhost:5000";
+    // const url = "http://localhost:5000";
 
 
     const registerUser = async (name, email) => {
