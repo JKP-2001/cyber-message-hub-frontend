@@ -2,19 +2,21 @@ import React, { useState, useContext } from 'react'
 import AuthContext from "../Context/LoginContext/AuthContext"
 import { useParams } from "react-router-dom";
 import Loader from "./Loader"
+import {Link} from "react-router-dom"
 
 const SetPassword = (props) => {
     const { resetPassword } = useContext(AuthContext);
     const params = useParams();
     const [password, setpassword] = useState({ password: "", Cpassword: "" });
     const [ismatch, setIsMatch] = useState(false);
+    
     const submit = async (e) => {
             e.preventDefault();
             setIsMatch(true)
             const x = await resetPassword(password.password, params.token, params.id);
             setIsMatch(false);
             if(x===200){
-                props.showAlert("success","Your Password Has Been Successfully Changed.",5000)
+                props.showAlert("success","Your Password Has Been Successfully Changed. You Can Login Now",5000)
             }
             else if(x==401 || x===402){
                 props.showAlert("danger","Unexpected Error Occur, Please try again.",5000)
@@ -58,6 +60,7 @@ const SetPassword = (props) => {
                 <small id="emailHelp2" className="form-text text-muted">Button will be disabled until password doesn't matched. </small>
                 <small id="emailHelp" className="form-text text-muted">Button will be disabled until password length is less than 8. </small>
                 
+                <small id="emailHelp" className="form-text text-muted my-1">*After Re-Setting The Password, You Can Log In By<Link className="mx-2" to="/login" role="button">Click Here</Link></small>
                 </div>
             </form>
         </div>

@@ -1,9 +1,14 @@
-import React from 'react'
+import React, { useState } from 'react'
+
+
+
 
 const Home = () => {
+  
+
   return (
     <div>
-      <h1>Hello Google</h1>
+      <div className="container mx-10"><h1>Hey There</h1></div>
     </div>
   )
 }
