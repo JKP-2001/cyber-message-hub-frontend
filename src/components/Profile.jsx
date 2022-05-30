@@ -22,7 +22,8 @@ const Profile = (props) => {
         <div className="container my-3">
         
           {userItem.map((item) => {
-            const url = "http://localhost:5000/" + item.img_address
+            //   const url = "https://cross-origin-web.herokuapp.com";
+            const url = "https://cross-origin-web.herokuapp.com/" + item.img_address
             const first = item.creator.split(' ')[0]
             return (<ItemCard title={item.name} description={item.description} address={url} key={item._id} creator={first} date={item.creation_date} creator_mail={item.creatorMail}/>)
           })}

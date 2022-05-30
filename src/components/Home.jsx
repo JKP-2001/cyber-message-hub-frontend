@@ -29,7 +29,7 @@ const Home = () => {
         <div className="container my-3">
         
           {items.map((item) => {
-            const url = "http://localhost:5000/" + item.img_address
+            const url = "https://cross-origin-web.herokuapp.com/" + item.img_address
             // var today = new Date();
             // var hour = today.getHours(); var min = today.getMinutes(); var sec = today.getSeconds();
             // var date = today.getDate()+'-'+(today.getMonth()+1)+'-'+today.getFullYear();
