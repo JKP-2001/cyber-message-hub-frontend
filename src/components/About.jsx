@@ -1,6 +1,11 @@
-import React from 'react'
+import React,{useEffect} from 'react'
 
 const About = () => {
+
+  
+  
+
+
   return (
     <div>
       <h2>This Is About Page</h2>

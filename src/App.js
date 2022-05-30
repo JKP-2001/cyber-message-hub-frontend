@@ -1,12 +1,14 @@
 import Navbar from "./components/Navbar";
 import AuthState from "./Context/LoginContext/AuthState";
-import React,{useState} from 'react'
+import ItemState from "./Context/ItemContext/ItemState";
+import React, { useState } from 'react'
 
 import {
-    BrowserRouter as Router,
-    Routes,
-    Route,
-    Link
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Link,
+  useNavigate
 } from "react-router-dom";
 
 import Home from "./components/Home"
@@ -30,23 +32,26 @@ function App() {
         setAlert(null);
       }, time));
 
+    // const Navigate = useNavigate(())
 
   return (
     <AuthState>
-      <Router>
-        <Navbar />
-        <Alert alert={alert}/>
-        <Routes>
-          <Route path="/about" element={<About showAlert={showAlert}/>} />
-          <Route path="/" element={<Home showAlert={showAlert}/>} />
-          <Route path="/login" element={<Login showAlert={showAlert}/>} />
-          <Route path="/register" element={<Register isDone={false} showAlert={showAlert}/>} />
-          <Route path="/confirmation" element={<EmailSentPage showAlert={showAlert}/>} />
-          <Route path="/setPassword/:token" element={<SetPassword message="Set Password" showAlert={showAlert}/>} />
-          <Route path="/resetpassword/" element={<ResetLink showAlert={showAlert}/>} />
-          <Route path="/resettingpassword/:id/:token" element = {<ResetPassword showAlert={showAlert} message="Reset Password"/>} />
-        </Routes>
-      </Router >
+      <ItemState>
+        <Router>
+          <Navbar />
+          <Alert alert={alert} />
+          <Routes>
+            <Route path="/about" element={<About showAlert={showAlert} />} />
+            <Route path="/" element={<Home showAlert={showAlert} />} />
+            <Route path="/login" element={<Login showAlert={showAlert} />} />
+            <Route path="/register" element={<Register isDone={false} showAlert={showAlert} />} />
+            <Route path="/confirmation" element={<EmailSentPage showAlert={showAlert} />} />
+            <Route path="/setPassword/:token" element={<SetPassword message="Set Password" showAlert={showAlert} />} />
+            <Route path="/resetpassword/" element={<ResetLink showAlert={showAlert} />} />
+            <Route path="/resettingpassword/:id/:token" element={<ResetPassword showAlert={showAlert} message="Reset Password" />} />
+          </Routes>
+        </Router >
+      </ItemState>
     </AuthState>
   )
 }

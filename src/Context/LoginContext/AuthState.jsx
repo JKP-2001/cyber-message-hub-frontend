@@ -49,7 +49,8 @@ const AuthState = (props) => {
             },
             body: JSON.stringify({email,password})
         });
-        // const json = await response.json();
+        const json = await response.json();
+        localStorage.setItem("token", json.token);
         return (response.status);
     }
 

@@ -27,13 +27,13 @@ const ResetLink = (props) => {
 
 return (
     <div className="container my-2">
-        <Loader loading={loading}/>
-        <h1>Reset Password</h1>
+        <Loader loading={loading} message="Processing"/>
+        <h1 style={{"color":"white"}}>Reset Password</h1>
         <form className="my-2">
             <div className="form-group ">
-                <label htmlFor="exampleInputEmail1">Email address</label>
+                <label htmlFor="exampleInputEmail1" style={{"color":"white"}}>Email address*</label>
                 <input type="email" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="email" value={email} onChange={change} placeholder="Enter email" />
-                <small id="emailHelp" className="form-text text-muted">We'll never share your email with anyone else.</small>
+                <small id="emailHelp" className="form-text" style={{"color":"white"}}>We'll never share your email with anyone else.</small>
             </div>
             <button type="submit" className="btn btn-primary" onClick={submit}>Submit</button>
         </form>

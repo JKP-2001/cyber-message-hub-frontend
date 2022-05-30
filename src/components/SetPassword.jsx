@@ -35,26 +35,26 @@ const SetPassword = (props) => {
 
     return (
         <div className="container my-3">
-            <Loader loading={loading}/>
-            <h1>{props.message}</h1>
-            <form className="my-2">
+            <Loader loading={loading} message={"Loading"}/>
+            <h1 style={{"color":"white"}}>{props.message}</h1>
+            <form className="my-2" style={{"width":"50%"}}>
                 <div className="form-group">
-                    <label htmlFor="exampleInputPassword1">Password*</label>
+                    <label htmlFor="exampleInputPassword1" style={{"color":"white"}}>Password*</label>
                     <input type="password" className="form-control" id="exampleInputPassword1" name="password" value={password.password} placeholder="Password" onChange={change} />
                 </div>
 
                 <div className="form-group">
-                    <label htmlFor="exampleInputPassword1">Confirm Password*</label>
+                    <label htmlFor="exampleInputPassword1" style={{"color":"white"}}>Confirm Password*</label>
                     <input type="password" className="form-control" id="exampleInputPassword1" name="Cpassword" value={password.Cpassword} placeholder="Confirm Password" onChange={change} />
                 </div>
 
                 <button type="submit" className="btn btn-primary" onClick={submit} disabled={password.password.length>=8 & password.password === password.Cpassword?false:true}>Submit</button>
                 
                 <div className="my-2">
-                <small id="emailHelp2" className="form-text text-muted">*Button will be disabled until password doesn't matched. </small>
-                <small id="emailHelp3" className="form-text text-muted">*Button will be disabled until password length is less than 8. </small>
+                <small id="emailHelp2" className="form-text " style={{"color":"white"}}>*Button will be disabled until password doesn't matched. </small>
+                <small id="emailHelp3" className="form-text " style={{"color":"white"}}>*Button will be disabled until password length is less than 8. </small>
 
-                <small id="emailHelp" className="form-text text-muted my-1">*After Setting The Password, You Can Log In By<Link className="mx-2" to="/login" role="button">Click Here</Link></small>
+                <small id="emailHelp" className="form-text  my-1" style={{"color":"white"}}>*After Setting The Password, You Can Log In By<Link className="mx-2" to="/login" role="button">Click Here</Link></small>
                 </div>
             </form>
         </div>

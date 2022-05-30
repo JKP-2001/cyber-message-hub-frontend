@@ -48,22 +48,22 @@ const Register = (props) => {
     <>
     
     <div className="container my-2">
-    <Loader loading={loading}/>
-      <h1>Register Here</h1>
-      <form className="my-2">
+    <Loader loading={loading} message="Processing"/>
+      <h1 style={{"color":"white"}}>Register Here</h1>
+      <form className="my-2" style={{"width":"50%"}}>
         <div className="form-group my-2">
-          <label htmlFor="exampleInputPassword1">Name*</label>
+          <label htmlFor="exampleInputPassword1" style={{"color":"white"}}>Name*</label>
           <input type="text" className="form-control" id="name" name="name" value={user.name} onChange={change} placeholder="Name" />
         </div>
 
         <div className="form-group ">
-          <label htmlFor="exampleInputEmail1">Email address*</label>
+          <label htmlFor="exampleInputEmail1" style={{"color":"white"}}>Email address*</label>
           <input type="email" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="email" value={user.email} onChange={change} placeholder="Enter email" />
-          <small id="emailHelp" className="form-text text-muted">We'll never share your email with anyone else.</small>
+          <small id="emailHelp" className="form-text " style={{"color":"white"}}>We'll never share your email with anyone else.</small>
         </div>
         <button type="submit" className="btn btn-primary" onClick={submit} >Submit</button>
 
-        <small id="emailHelp" className="form-text text-muted my-3">Already Have An Account?<Link className="mx-2" to="/login" role="button">Click Here</Link></small>
+        <small id="emailHelp" className="form-text my-3" style={{"color":"white"}}>Already Have An Account?<Link className="mx-2" to="/login" role="button">Click Here</Link></small>
 
       </form>
     </div>
