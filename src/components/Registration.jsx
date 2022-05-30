@@ -50,7 +50,7 @@ const Register = (props) => {
     <div className="container my-2">
     <Loader loading={loading} message="Processing"/>
       <h1 style={{"color":"white"}}>Register Here</h1>
-      <form className="my-2" style={{"width":"50%"}}>
+      <form className="my-2" >
         <div className="form-group my-2">
           <label htmlFor="exampleInputPassword1" style={{"color":"white"}}>Name*</label>
           <input type="text" className="form-control" id="name" name="name" value={user.name} onChange={change} placeholder="Name" />

@@ -36,7 +36,7 @@ const Login = (props) => {
     <div className="container mx-20">
       <Loader loading={loading} message="Logging In"/>
       <h1 style={{"color":"white"}}>Login Here</h1>
-      <form className="mx-10" style={{"width":"50%"}}>
+      <form className="mx-10" >
         <div className="form-group ">
           <label htmlFor="exampleInputEmail1" style={{"color":"white"}}>Email address</label>
           <input type="email" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="email" value={cred.email} onChange={change} placeholder="Enter email" />
