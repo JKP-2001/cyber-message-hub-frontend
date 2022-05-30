@@ -9,7 +9,7 @@ const ItemCard = (props) => {
 
     return (
 
-        <div className="card md-6 h-100 my-4 border-primary border-10" style={{ "width": "75%" }}>
+        <div className="card md-6 h-100 my-4 border-primary border-10" style={{ "width": "100%" }}>
             <img src={props.address} className="card-img-top" alt="..." />
             <div className="card-body">
                 <h5 className="card-title">{props.title}</h5>
