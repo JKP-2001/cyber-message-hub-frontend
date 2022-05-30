@@ -30,7 +30,15 @@ const Home = () => {
         
           {items.map((item) => {
             const url = "http://localhost:5000/" + item.img_address
-            return (<ItemCard title={item.name} description={item.description} address={url} key={item._id} />)
+            // var today = new Date();
+            // var hour = today.getHours(); var min = today.getMinutes(); var sec = today.getSeconds();
+            // var date = today.getDate()+'-'+(today.getMonth()+1)+'-'+today.getFullYear();
+            // if(date === items.creation_date){
+            //   if(hour === parseInt(items.creation_date))
+            // }
+
+            const first = item.creator.split(' ')[0]
+            return (<ItemCard title={item.name} description={item.description} address={url} key={item._id} creator={first} date={item.creation_date} creator_mail={item.creatorMail}/>)
           })}
         
       </div>
