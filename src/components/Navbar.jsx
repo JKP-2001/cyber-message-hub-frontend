@@ -43,6 +43,11 @@ const Navbar = () => {
                     <li className="nav-item">
                         <Link className={`nav-link ${location.pathname === "/profile" ? "active" : ""}`} to="/profile">Profile</Link>
                     </li>
+
+                    <li className="nav-item">
+                        <Link className={`nav-link ${location.pathname === "/newPost" ? "active" : ""}`} to="/newPost">NewPost</Link>
+                    </li>
+                    
                 </ul>
                 {localStorage.getItem('token') ?
                     <button type="button" className="btn btn-primary" onClick={handleLogout}>Logout</button> : <form className="form-inline my-2 my-lg-0">

@@ -35,6 +35,7 @@ const Home = () => {
         
           {items.map((item) => {
             const url = "https://cross-origin-web.herokuapp.com/" + item.img_address
+            // const url = "https://localhost:5000/" + item.img_address
             // var today = new Date();
             // var hour = today.getHours(); var min = today.getMinutes(); var sec = today.getSeconds();
             // var date = today.getDate()+'-'+(today.getMonth()+1)+'-'+today.getFullYear();

@@ -45,8 +45,9 @@
 }
 
 .post-image{
-  width:100%;
-  height: auto;
+  padding-left: 50px;
+  width:90%;
+  max-height: 700px;
   object-fit: cover;
 }
 

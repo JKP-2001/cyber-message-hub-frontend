@@ -21,6 +21,7 @@ import Alert from "./components/Alert";
 import ResetLink from "./components/ResetLink";
 import ResetPassword from "./components/ResetPassword"
 import Profile from "./components/Profile";
+import AddNewPost from "./components/AddNewPost";
 
 function App() {
   const [alert, setAlert] = useState(null);
@@ -51,6 +52,7 @@ function App() {
             <Route path="/resetpassword/" element={<ResetLink showAlert={showAlert} />} />
             <Route path="/resettingpassword/:id/:token" element={<ResetPassword showAlert={showAlert} message="Reset Password" />} />
             <Route path ="/profile" element={<Profile showAlert={showAlert} />} />
+            <Route path ="/newPost" element={<AddNewPost showAlert={showAlert} />} />
           </Routes>
         </Router >
       </ItemState>

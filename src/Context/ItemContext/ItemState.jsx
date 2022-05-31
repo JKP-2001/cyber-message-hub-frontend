@@ -28,12 +28,16 @@ const ItemState = (props) => {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
+                
                 'auth-token': localStorage.getItem('token')
             },
         });
         const json = await response.json();
         setUserItem(json);
     }
+
+
+   
 
     return (<ItemContext.Provider value={{items,userItem,getUserItem,getItem}} >
         {props.children}
