@@ -3,17 +3,21 @@ import ItemContext from '../Context/ItemContext/ItemContext';
 import { useNavigate } from 'react-router-dom';
 import About from "./About"
 import ItemCard from './ItemCard';
+import Loader from './Loader';
 
 const Home = () => {
   const Navigate = useNavigate();
   const { items, getItem } = useContext(ItemContext);
+  const[loading,setLoading] = useState(false);
 
   useEffect(() => {
     if (!localStorage.getItem('token')) {
       Navigate("/login")
     }
-    else {
-      getItem();
+    else { 
+      setLoading(true);
+      const x = getItem();
+      setLoading(false);
       // console.log(items)
     }
 
@@ -24,6 +28,7 @@ const Home = () => {
 
   return (
     <>
+      <Loader loading={loading} message=""/>
       <div className="container my-2"><h1>New Items</h1></div>
       
         <div className="container my-3">
@@ -37,7 +42,7 @@ const Home = () => {
             //   if(hour === parseInt(items.creation_date))
             // }
 
-            const first = item.creator.split(' ')[0]
+            const first = item.creator
             return (<ItemCard title={item.name} description={item.description} address={url} key={item._id} creator={first} date={item.creation_date} creator_mail={item.creatorMail}/>)
           })}
         

@@ -20,6 +20,7 @@ const ItemState = (props) => {
         });
         const json = await response.json();
         setItems(json);
+        // return(response.status)
     }
 
     const getUserItem = async () => {
