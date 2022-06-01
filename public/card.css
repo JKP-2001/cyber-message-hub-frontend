@@ -4,6 +4,7 @@
   background: #fff;
   border: 1px solid #dfdfdf;
   margin-top: 40px;
+  /* margin-left: 50px; */
 }
 
 .info{
@@ -16,7 +17,7 @@
 }
 
 .info .username{
-  width: auto;
+  width: 100%;
   font-weight: bold;
   color: #000;
   font-size: 14px;
@@ -45,10 +46,10 @@
 }
 
 .post-image{
-  padding-left: 50px;
-  width:90%;
-  max-height: 700px;
-  object-fit: cover;
+
+  width:100%;
+  max-height: 800px;
+  object-fit: contain;
 }
 
 .post-content{
@@ -126,4 +127,26 @@
 
 .reaction-wrapper .icon.save{
   margin-left: auto;
+}
+
+
+.blue-color {
+  color:blue;
+}
+
+.green-color {
+  color:green;
+}
+
+.teal-color {
+  color:teal;
+}
+
+.yellow-color {
+color:yellow;
+}
+
+.red-color {
+  color:red;
+  fill: red;
 }

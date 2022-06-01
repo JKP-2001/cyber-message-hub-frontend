@@ -3,8 +3,8 @@ import ItemContext from "./ItemContext"
 
 const ItemState = (props) => {
 
-    // const url = "http://localhost:5000/api/item/uploads"
-    const url = "https://cross-origin-web.herokuapp.com/api/item/uploads";
+    const url = "http://localhost:5000/api/item/uploads"
+    // const url = "https://cross-origin-web.herokuapp.com/api/item/uploads";
 
     const initialItem = [];
     const [items, setItems] = useState(initialItem);
@@ -19,7 +19,8 @@ const ItemState = (props) => {
             },
         });
         const json = await response.json();
-        setItems(json);
+        const x = json.reverse();
+        setItems(x);
         // return(response.status)
     }
 
@@ -33,13 +34,24 @@ const ItemState = (props) => {
             },
         });
         const json = await response.json();
-        setUserItem(json);
+        const x = json.reverse();
+        setUserItem(x);
     }
 
 
+    const likes = async (id)=>{
+        const response = await fetch(`${url}/likeanote/${id}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'auth-token': localStorage.getItem('token')
+            },
+        });
+    }
+
    
 
-    return (<ItemContext.Provider value={{items,userItem,getUserItem,getItem}} >
+    return (<ItemContext.Provider value={{items,userItem,getUserItem,getItem,likes}} >
         {props.children}
     </ItemContext.Provider>)
 }

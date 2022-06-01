@@ -5,14 +5,15 @@ import AuthContext from "./AuthContext";
 const AuthState = (props) => {
 
     const [user, setUser] = useState([]);
+    const [email,setemail] = useState("");
 
     // const change = (value)=>{
     //     setUser(value);
     // }
 
-    const url = "https://cross-origin-web.herokuapp.com";
+    // const url = "";
 
-    // const url = "http://localhost:5000";
+    const url = "http://localhost:5000";
 
 
     const registerUser = async (name, email) => {
@@ -80,7 +81,22 @@ const AuthState = (props) => {
     }
 
 
-    return (<AuthContext.Provider value={{ registerUser,setPassword, loginUser, sendResetEmail, resetPassword }}>
+    const getUser = async()=>{
+        const response = await fetch(`${url}/api/auth/getemail`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'auth-token': localStorage.getItem('token')
+            },
+        });
+        const json = await response.json();
+        setemail(json.mail);
+        // console.log(json);
+    }
+
+
+
+    return (<AuthContext.Provider value={{email, registerUser,setPassword, loginUser, sendResetEmail, resetPassword,getUser }}>
         {props.children}
     </AuthContext.Provider>
     )
