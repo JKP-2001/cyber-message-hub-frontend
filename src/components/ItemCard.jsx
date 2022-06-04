@@ -6,24 +6,41 @@ import Card from './Card'
 const ItemCard = (props) => {
     const Navigate = useNavigate()
     const { likes } = useContext(ItemContext);
-    const [nlike, setNLike] = useState(0);
-    const [liked, setLiked] = useState(false);
-    const [like, setLike] = useState([]);
+    const [nlike, setNLike] = useState(props.likes);
+    const [liked, setLiked] = useState(props.isLiked);
+    const [like, setLike] = useState(props.xy);
+    // const [pike, setpi]
 
+    const [selectedItem,setSelectedItem] = useState([])
+    const [show,setShow] = useState(false);
 
-    useEffect(() => {
-        setLiked(props.isLiked);
-        setLike(props.xy);
-    }, [props.isLiked, props.xy])
+    const expandModal = () => {
+        setSelectedItem(like);
+        setShow(true);
+    }
+
+    const closeModal = () => {
+        setSelectedItem([]);
+        setShow(false);
+    }
+
 
 
     const handleClick = async () => {
+        const y = like;
         if (liked === true) {
             setLiked(false);
+            setNLike(nlike - 1);
+            y.pop()
+            
         }
         else {
             setLiked(true);
+            setNLike(nlike + 1);
+            y.push(props.user_email)
+            
         }
+        setLike(y);
         likes(props.idx);
     }
 
@@ -61,35 +78,43 @@ const ItemCard = (props) => {
                                     <i className="bi bi-share" style={{ "fontSize": "25px" }}></i>
                                 </div>
 
-                                <p className="likes" style={{ "cursor": "pointer" }} data-toggle="modal" data-target="#exampleModalLong">{props.likes} likes</p>
 
-                                <div className="modal fade" id="exampleModalLong" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
-                                    <div className="modal-dialog" role="document">
-                                        <div className="modal-content">
-                                            <div className="modal-header">
-                                                <h5 className="modal-title" id="exampleModalLongTitle">Likes</h5>
-                                                <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+
+                                
+                                <p className="likes" style={{ "cursor": "pointer" }} data-toggle="modal" data-target="#staticBackdrop" onClick={expandModal}>
+                                    {nlike} likes
+                                </p>
+                                
+
+
+                                {show &&<div class="modal fade" id="staticBackdrop" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="staticBackdropLabel">{props.creator_mail}</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                     <span aria-hidden="true">&times;</span>
                                                 </button>
                                             </div>
-                                            {/* {console.log(like)}  */}
 
-                                            {like.map((abc) => {
-                                                // console.log("abc = ", abc)
-                                                return (
-                                                    <div className="modal-body" key={abc}>
-                                                        <div className="card">
-                                                            <div className="card-body">
-                                                                {abc}
-                                                                <button type="button" className="btn btn-outline-primary " style={{ "float": "right", "width": "25%" }}>Follow</button>
-                                                            </div>
+                                            <div class="modal-body">
+                                                {selectedItem.map((item, i) => {
+                                                    return (
+
+                                                        <div className="card-body" key={i}>
+                                                            {item}
+                                                            <button type="button" className="btn btn-outline-primary " style={{ "float": "right", "width": "25%" }}>Follow</button>
                                                         </div>
-                                                    </div>
-                                                )
-                                            })}
+                                                    )
+                                                })}
+                                            </div>
+                                            <div class="modal-footer" >
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal" onClick={closeModal} >Close</button>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
+                                </div>}
+                                
 
 
 

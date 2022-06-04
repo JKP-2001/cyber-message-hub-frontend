@@ -6,7 +6,8 @@ const AuthState = (props) => {
 
     const [user, setUser] = useState([]);
     const [email,setemail] = useState("");
-
+    const [shared,setShared] = useState([]);
+    
     // const change = (value)=>{
     //     setUser(value);
     // }
@@ -94,9 +95,22 @@ const AuthState = (props) => {
         // console.log(json);
     }
 
+    const getUserSharedPosts = async() =>{
+        const response = await fetch(`${url}/api/auth/getshareditems`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'auth-token': localStorage.getItem('token')
+            },
+        });
+        const json = await response.json();
+        setShared(json);
+    }
+    
 
+    
 
-    return (<AuthContext.Provider value={{email, registerUser,setPassword, loginUser, sendResetEmail, resetPassword,getUser }}>
+    return (<AuthContext.Provider value={{email, shared,getUserSharedPosts,registerUser,setPassword, loginUser, sendResetEmail, resetPassword,getUser }}>
         {props.children}
     </AuthContext.Provider>
     )

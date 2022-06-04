@@ -6,39 +6,36 @@ import About from "./About"
 import ItemCard from './ItemCard';
 import Loader from './Loader';
 
-const Home = () => {
+const SharedItem = (props) => {
   const Navigate = useNavigate();
-  const { items, getItem} = useContext(ItemContext);
-  const {email,getUser} = useContext(AuthContext)
+  const {shared,email,getUser,getUserSharedPosts} = useContext(AuthContext)
+//   const {} = useContext(AuthContext)
   const[loading,setLoading] = useState(false);
   // const [email,setEmail] = useState();
-  
 
   useEffect(() => {
     if (!localStorage.getItem('token')) {
       Navigate("/login")
     }
     else { 
-      setLoading(true);
-      getItem();
       getUser();
-      setLoading(false);
+      getUserSharedPosts();
       // console.log(items)
     }
 
 
-  },[])
+  },[shared])
   // console.log(localStorage.getItem('token'))
   // localStorage.removeItem('token');
-  
+
   return (
     <>
       <Loader loading={loading} message=""/>
-      <div className="container my-2"><h1>New Items</h1></div>
+      <div className="container my-2"><h1>Shared Posts</h1></div>
       
         <div className="container my-3">
-
-          {items.map((item) => {
+          {/* {console.log(shared)} */}
+          {shared.map((item,i) => {
             // const url = "https://cross-origin-web.herokuapp.com/" + item.img_address
             const url = "http://localhost:5000/" + item.img_address
             var today = new Date();
@@ -76,12 +73,15 @@ const Home = () => {
             }
             const first = item.creator
             // const y = getUser();
-            console.log(email);
+            // console.log(y);
             const z = item.liked_by.indexOf(email);
-
+            const pp = item.shared_by.indexOf(email);
             // console.log(z);
             // console.log(item.comments);
-            return (<ItemCard title={item.name} description={item.description} address={url} key={item._id} creator={first} date={item.creation_date} creator_mail={item.creatorMail} likes={item.liked_by.length} idx={item._id} isLiked={z===-1?false:true} status={status} xy = {item.liked_by} comments={item.comments} user_email={email}/>)
+            // console.log(pp);
+            if(pp!==-1){
+                return (<ItemCard title={item.name} description={item.description} address={url} key={i} creator={first} date={item.creation_date} creator_mail={item.creatorMail} likes={item.liked_by.length} idx={item._id} isLiked={z===-1?false:true} isShared={pp===-1?false:true} status={status} xy = {item.liked_by} comments={item.comments} setAlert={props.showAlert}/>)
+            }
           })}
         
       </div>
@@ -89,4 +89,4 @@ const Home = () => {
   )
 }
 
-export default Home;
+export default SharedItem;

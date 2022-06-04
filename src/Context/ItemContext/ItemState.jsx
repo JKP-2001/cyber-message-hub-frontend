@@ -49,9 +49,31 @@ const ItemState = (props) => {
         });
     }
 
+
+    const shareItem = async (id)=>{
+        const response = await fetch(`${url}/share/${id}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'auth-token': localStorage.getItem('token')
+            },
+        });
+    }
+
+
+    const unshareItem = async (id)=>{
+        const response = await fetch(`${url}/unshare/${id}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'auth-token': localStorage.getItem('token')
+            },
+        });
+    }
+
    
 
-    return (<ItemContext.Provider value={{items,userItem,getUserItem,getItem,likes}} >
+    return (<ItemContext.Provider value={{items,userItem,getUserItem,getItem,likes,shareItem,unshareItem}} >
         {props.children}
     </ItemContext.Provider>)
 }

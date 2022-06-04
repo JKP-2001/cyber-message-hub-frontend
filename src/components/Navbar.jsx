@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 
 import {
     BrowserRouter as Router,
@@ -47,7 +47,18 @@ const Navbar = () => {
                     <li className="nav-item">
                         <Link className={`nav-link ${location.pathname === "/newPost" ? "active" : ""}`} to="/newPost">NewPost</Link>
                     </li>
-                    
+                    <li class="nav-item dropdown ">
+                        <a class={`nav-link ${location.pathname === "/your_posts" || location.pathname === "/sharedposts"  ? "active" : ""} dropdown-toggle`} href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Posts
+                        </a>
+                        <div class="dropdown-menu my-2" aria-labelledby="navbarDropdown">
+                            <Link class={`dropdown-item ${location.pathname === "#" ? "active" : ""}`} to="/your_posts">Your Posts</Link>
+                            
+                            <div class="dropdown-divider"></div>
+                            <Link class={`dropdown-item ${location.pathname === "#" ? "active" : ""}`} to="/sharedposts">Saved Posts</Link>
+                        </div>
+                    </li>
+
                 </ul>
                 {localStorage.getItem('token') ?
                     <button type="button" className="btn btn-primary" onClick={handleLogout}>Logout</button> : <form className="form-inline my-2 my-lg-0">

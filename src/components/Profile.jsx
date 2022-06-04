@@ -16,8 +16,8 @@ const Profile = (props) => {
         }
         else {
             setLoading(true)
-            getUserItem();
             getUser();
+            getUserItem();
             setLoading(false)
             // console.log(items)
         }
@@ -67,10 +67,14 @@ const Profile = (props) => {
                   const first = item.creator
                   // const y = getUser();
                   // console.log(y);
-                  const z = item.liked_by.indexOf(email);
+                  // const z = item.liked_by.indexOf(email);
       
                   // console.log(z);
-                  return (<ItemCard title={item.name} description={item.description} address={url} key={item._id} creator={first} date={item.creation_date} creator_mail={item.creatorMail} likes={item.liked_by.length} idx={item._id} isLiked={z===-1?false:true} status={status} liked_by = {item.liked_by}/>)
+                  const z = item.liked_by.indexOf(email);
+
+            // console.log(z);
+            // console.log(item.comments);
+            return (<ItemCard title={item.name} description={item.description} address={url} key={item._id} creator={first} date={item.creation_date} creator_mail={item.creatorMail} likes={item.liked_by.length} idx={item._id} isLiked={z===-1?false:true} status={status} xy = {item.liked_by} comments={item.comments}/>)
             
                 
               })}
