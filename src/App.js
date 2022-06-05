@@ -52,7 +52,7 @@ function App() {
             <Route path="/setPassword/:token" element={<SetPassword message="Set Password" showAlert={showAlert} />} />
             <Route path="/resetpassword/" element={<ResetLink showAlert={showAlert} />} />
             <Route path="/resettingpassword/:id/:token" element={<ResetPassword showAlert={showAlert} message="Reset Password" />} />
-            <Route path ="/your_posts" element={<Profile showAlert={showAlert} />} />
+            <Route path ="/your-posts" element={<Profile showAlert={showAlert} />} />
             <Route path ="/newPost" element={<AddNewPost showAlert={showAlert} />} />
             <Route path="/sharedposts" element={<SharedItem showAlert={showAlert} />} />
           </Routes>

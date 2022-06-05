@@ -6,7 +6,7 @@ import About from "./About"
 import ItemCard from './ItemCard';
 import Loader from './Loader';
 
-const Home = () => {
+const Home = (props) => {
   const Navigate = useNavigate();
   const { items, getItem} = useContext(ItemContext);
   const {email,getUser} = useContext(AuthContext)
@@ -20,8 +20,8 @@ const Home = () => {
     }
     else { 
       setLoading(true);
-      getItem();
       getUser();
+      getItem();
       setLoading(false);
       // console.log(items)
     }
@@ -81,7 +81,7 @@ const Home = () => {
 
             // console.log(z);
             // console.log(item.comments);
-            return (<ItemCard title={item.name} description={item.description} address={url} key={item._id} creator={first} date={item.creation_date} creator_mail={item.creatorMail} likes={item.liked_by.length} idx={item._id} isLiked={z===-1?false:true} status={status} xy = {item.liked_by} comments={item.comments} user_email={email}/>)
+            return (<ItemCard title={item.name} description={item.description} address={url} key={item._id} creator={first} date={item.creation_date} creator_mail={item.creatorMail} likes={item.liked_by.length} idx={item._id} isLiked={z===-1?false:true} status={status} xy={item.liked_by} comments={item.comments} user_email={email} showAlert={props.showAlert}/>)
           })}
         
       </div>

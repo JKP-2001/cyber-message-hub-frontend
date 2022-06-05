@@ -5,14 +5,33 @@ import Card from './Card'
 
 const ItemCard = (props) => {
     const Navigate = useNavigate()
-    const { likes } = useContext(ItemContext);
+    const { likes, postComment } = useContext(ItemContext);
     const [nlike, setNLike] = useState(props.likes);
-    const [liked, setLiked] = useState(props.isLiked);
-    const [like, setLike] = useState(props.xy);
+    const [liked, setLiked] = useState(false);
+    const [like, setLike] = useState([]);
+    const [showComment, setShowComment] = useState(false);
+    const [comment, setComment] = useState([]);
+    const [ncomment, setnComment] = useState();
+    const [opacity, setOpacity] = useState(0.5);
+    const [commentText, setCommentText] = useState("");
     // const [pike, setpi]
 
-    const [selectedItem,setSelectedItem] = useState([])
-    const [show,setShow] = useState(false);
+
+    useEffect(() => {
+        setLike(props.xy);
+        setComment(props.comments);
+        setnComment(props.comments.length)
+    })
+
+    useEffect(() => {
+        setLiked(props.isLiked);
+    }, [like])
+
+
+
+    const [selectedItem, setSelectedItem] = useState([])
+    const [selectedCommentItem, setSelectedCommentItem] = useState([])
+    const [show, setShow] = useState(false);
 
     const expandModal = () => {
         setSelectedItem(like);
@@ -24,26 +43,59 @@ const ItemCard = (props) => {
         setShow(false);
     }
 
+    const expandcommentModal = () => {
+        setSelectedCommentItem(comment);
+        setShowComment(true);
+    }
+
+    const closecommentModal = () => {
+        setSelectedCommentItem([]);
+        setShowComment(true);
+    }
+
 
 
     const handleClick = async () => {
-        const y = like;
         if (liked === true) {
             setLiked(false);
             setNLike(nlike - 1);
-            y.pop()
-            
+            for (let i = 0; i < like.length; i++) {
+                if (props.user_email === like[i]) {
+                    like.splice(i, 1);
+                    setLike(like);
+                    break;
+                }
+            }
+
         }
         else {
             setLiked(true);
             setNLike(nlike + 1);
-            y.push(props.user_email)
-            
+            like.push(props.user_email)
+            setLike(like);
+
         }
-        setLike(y);
         likes(props.idx);
     }
 
+    const changeComment = (e) => {
+        setOpacity(1);
+        setCommentText(e.target.value);
+    }
+
+
+    const postComments = () => {
+        setCommentText("");
+        const x = {
+            "user_name": props.user_email,
+            "message": commentText,
+        }
+        comment.push(x);
+        setComment(comment);
+        setnComment(ncomment + 1);
+        postComment(commentText, props.idx);
+        props.showAlert("success", "Comment Added Successfully", 3000);
+    }
     // const [style,setStyle] = useState({""});
 
 
@@ -60,10 +112,10 @@ const ItemCard = (props) => {
                         <div className="post">
                             <div className="info">
                                 <div className="user">
-                                    <div className="profile-pic"><img src="" alt="" /></div>
-                                    <p className="username">{props.creator}</p>
+                                    <div className="profile-pic"><img src="" alt=""/></div>
+                                    <p className="username">modern_web_channel</p>
                                 </div>
-                                <img src="img/option.PNG" className="options" alt="" />
+                                <img src="img/option.PNG" className="options" alt=""/>
                             </div>
                             <img src={props.address} className="post-image" alt="" />
                             <div className="post-content">
@@ -80,41 +132,76 @@ const ItemCard = (props) => {
 
 
 
-                                
+
                                 <p className="likes" style={{ "cursor": "pointer" }} data-toggle="modal" data-target="#staticBackdrop" onClick={expandModal}>
                                     {nlike} likes
                                 </p>
-                                
 
 
-                                {show &&<div class="modal fade" id="staticBackdrop" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                                    <div class="modal-dialog" role="document">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title" id="staticBackdropLabel">{props.creator_mail}</h5>
-                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+
+                                {show && <div className="modal fade" id="staticBackdrop" data-backdrop="static" tabIndex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                    <div className="modal-dialog" role="document">
+                                        <div className="modal-content">
+                                            <div className="modal-header">
+                                                <h4 className="modal-title mx-2" id="staticBackdropLabel">Likes</h4>
+                                                <button type="button" className="close" data-dismiss="modal" aria-label="Close" onClick={closeModal}>
                                                     <span aria-hidden="true">&times;</span>
                                                 </button>
                                             </div>
 
-                                            <div class="modal-body">
+                                            <div className="modal-body">
                                                 {selectedItem.map((item, i) => {
                                                     return (
-
-                                                        <div className="card-body" key={i}>
-                                                            {item}
-                                                            <button type="button" className="btn btn-outline-primary " style={{ "float": "right", "width": "25%" }}>Follow</button>
+                                                        <div className="card my-2">
+                                                            <div className="card-body" key={i + nlike} style={{ "color": "black" }}>
+                                                                {item}
+                                                                <button type="button" className="btn btn-outline-primary " style={{ "float": "right", "width": "25%" }}>Follow</button>
+                                                            </div>
                                                         </div>
                                                     )
                                                 })}
                                             </div>
-                                            <div class="modal-footer" >
-                                                <button type="button" class="btn btn-secondary" data-dismiss="modal" onClick={closeModal} >Close</button>
+                                            <div className="modal-footer" >
+                                                <button type="button" className="btn btn-secondary" data-dismiss="modal" onClick={closeModal} >Close</button>
                                             </div>
                                         </div>
                                     </div>
                                 </div>}
-                                
+
+
+                                <p style={{ "cursor": "pointer" }} data-toggle="modal" data-target="#staticBackdrop2" onClick={expandcommentModal}>
+                                    View All {ncomment} comments
+                                </p>
+                                {showComment && <div className="modal fade" id="staticBackdrop2" data-backdrop="static" tabIndex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                    <div className="modal-dialog" role="document">
+                                        <div className="modal-content">
+                                            <div className="modal-header">
+                                                <h4 className="modal-title mx-2" id="staticBackdropLabel1">Comments</h4>
+                                                <button type="button" className="close" data-dismiss="modal" aria-label="Close" onClick={closecommentModal}>
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+
+                                            <div className="modal-body">
+                                                {selectedCommentItem.map((item, i) => {
+                                                    return (
+                                                        <div className="card my-3" style={{ "width": "100%" }}>
+                                                            <div className="card-body">
+                                                                <button type="button" className="btn btn-outline-primary " style={{ "float": "right", "width": "25%" }}>Follow</button>
+                                                                <h5 className="card-title">{item.user_name}</h5>
+                                                                <p className="card-text">{item.message}.</p>
+                                                            </div>
+                                                        </div>
+                                                    )
+                                                })}
+                                            </div>
+                                            <div className="modal-footer" >
+                                                <button type="button" className="btn btn-secondary" data-dismiss="modal" onClick={closecommentModal} >Close</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>}
+
 
 
 
@@ -128,12 +215,13 @@ const ItemCard = (props) => {
 
                             <div className="comment-wrapper">
                                 <img src="img/smile.PNG" className="icon mx-3" alt="" />
-                                <input type="text" className="comment-box" placeholder="Add a comment" />
-                                <button className="comment-btn">post</button>
+                                <input type="text" className="comment-box" name="comment" value={commentText} placeholder="Add a comment" onChange={changeComment} />
+                                <button className="comment-btn" style={{ "opacity": opacity }} onClick={postComments}>post</button>
                             </div>
                         </div>
                     </div>
                 </div>
+
             </section>
         </>
     )

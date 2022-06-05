@@ -1,6 +1,6 @@
 import React, { useState, useContext, useEffect } from "react";
 import ItemContext from "../Context/ItemContext/ItemContext"
-import ItemCard from "./ItemCard"
+import ItemCardForProf from "./ItemCardForProf"
 import { useNavigate } from "react-router-dom";
 import Loader from "./Loader";
 import AuthContext from "../Context/LoginContext/AuthContext"
@@ -21,7 +21,7 @@ const Profile = (props) => {
             setLoading(false)
             // console.log(items)
         }
-    });
+    },[]);
 
     if(userItem.length>0){
         return (
@@ -74,7 +74,7 @@ const Profile = (props) => {
 
             // console.log(z);
             // console.log(item.comments);
-            return (<ItemCard title={item.name} description={item.description} address={url} key={item._id} creator={first} date={item.creation_date} creator_mail={item.creatorMail} likes={item.liked_by.length} idx={item._id} isLiked={z===-1?false:true} status={status} xy = {item.liked_by} comments={item.comments}/>)
+            return (<ItemCardForProf title={item.name} description={item.description} tag={item.tag} address={url} key={item._id} creator={first} date={item.creation_date} creator_mail={item.creatorMail} likes={item.liked_by.length} idx={item._id} isLiked={z===-1?false:true} status={status} xy = {item.liked_by} comments={item.comments} user_email={email} showAlert={props.showAlert}/>)
             
                 
               })}

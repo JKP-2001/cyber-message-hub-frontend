@@ -32,6 +32,7 @@ const ItemState = (props) => {
                 
                 'auth-token': localStorage.getItem('token')
             },
+            
         });
         const json = await response.json();
         const x = json.reverse();
@@ -71,9 +72,35 @@ const ItemState = (props) => {
         });
     }
 
+    
+
+    const deleteItem = async(id)=>{
+        const response = await fetch(`${url}/delete-item/${id}`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+                
+                'auth-token': localStorage.getItem('token')
+            },
+        });
+        return(response.status);
+    }
+
+
+    const postComment = async(comment,id)=>{
+        const response = await fetch(`${url}/comment/${id}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'auth-token': localStorage.getItem('token')
+            },
+            body: JSON.stringify({comment})
+        });
+    }
+
    
 
-    return (<ItemContext.Provider value={{items,userItem,getUserItem,getItem,likes,shareItem,unshareItem}} >
+    return (<ItemContext.Provider value={{items,userItem,getUserItem,getItem,likes,shareItem,unshareItem,deleteItem,postComment}} >
         {props.children}
     </ItemContext.Provider>)
 }
