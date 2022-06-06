@@ -40,7 +40,8 @@ const Home = (props) => {
 
           {items.map((item) => {
             // const url = "https://cross-origin-web.herokuapp.com/" + item.img_address
-            const url = "https://cross-origin-web.herokuapp.com/" + item.img_address[0];
+            const url = "https://cross-origin-web.herokuapp.com/" + item.img_address;
+            // const url = "http://localhost:5000/" + item.img_address;
             var today = new Date();
             var dt = new Date(item.getFull);
             var currHour = today.getHours(); var hour = dt.getHours();
@@ -83,7 +84,7 @@ const Home = (props) => {
             // console.log(z);
             // console.log(item.comments);
             console.log(item.img_address)
-            return (<ItemCard title={item.name} description={item.description} address={url} key={item._id} creator={first} date={item.creation_date} creator_mail={item.creatorMail} likes={item.liked_by.length} idx={item._id} isLiked={z===-1?false:true} status={status} xy={item.liked_by} comments={item.comments} tag={item.tag} user_email={email} showAlert={props.showAlert} shared_by={item.shared_by} isShared={m===-1?false:true} img_address={item.img_address}/>)
+            return (<ItemCard title={item.name} description={item.description} address={url} key={item._id} creator={first} date={item.creation_date} creator_mail={item.creatorMail} likes={item.liked_by.length} idx={item._id} isLiked={z===-1?false:true} status={status} xy={item.liked_by} comments={item.comments} tag={item.tag} user_email={email} showAlert={props.showAlert} shared_by={item.shared_by} isShared={m===-1?false:true} />)
           })}
         
       </div>

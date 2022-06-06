@@ -47,7 +47,7 @@ const ItemCardForProf = (props) => {
                 //handle success
                 console.log(response);
                 setLoading(false);
-                setItemData({title:item.title,description:item.description,tag:item.tag,address:response.data.url})
+                setItemData({title:item.title,description:item.description,tag:item.tag,address:response.data.url[0]})
                 submitClose.current.click();
                 props.showAlert("success","Item Updated Successfully",3000);
                 
@@ -238,7 +238,7 @@ const ItemCardForProf = (props) => {
                                                     <div className="form-group my-2">
                                                         <div className="mb-3">
                                                             <label htmlFor="formFile" className="form-label" style={{ "color": "black" }}>Choose Image*</label>
-                                                            <input className="form-control" type="file" style={{ "color": "black" }} id="formFile" name="image" onChange={imgChange} />
+                                                            <input className="form-control" type="file" style={{ "color": "black" }} id="formFile" name="image"  onChange={imgChange} />
                                                         </div>
                                                     </div>
                                                     {/* <small id="emailHelp" className="form-text my-3" style={{"color":"black"}}>Already Have An Account?<Link className="mx-2" to="/login" role="button">Click Here</Link></small> */}
