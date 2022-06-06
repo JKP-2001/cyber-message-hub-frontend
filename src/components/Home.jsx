@@ -78,10 +78,11 @@ const Home = (props) => {
             // const y = getUser();
             console.log(email);
             const z = item.liked_by.indexOf(email);
+            const m = item.shared_by.indexOf(email);
 
             // console.log(z);
             // console.log(item.comments);
-            return (<ItemCard title={item.name} description={item.description} address={url} key={item._id} creator={first} date={item.creation_date} creator_mail={item.creatorMail} likes={item.liked_by.length} idx={item._id} isLiked={z===-1?false:true} status={status} xy={item.liked_by} comments={item.comments} user_email={email} showAlert={props.showAlert}/>)
+            return (<ItemCard title={item.name} description={item.description} address={url} key={item._id} creator={first} date={item.creation_date} creator_mail={item.creatorMail} likes={item.liked_by.length} idx={item._id} isLiked={z===-1?false:true} status={status} xy={item.liked_by} comments={item.comments} tag={item.tag} user_email={email} showAlert={props.showAlert} shared_by={item.shared_by} isShared={m===-1?false:true}/>)
           })}
         
       </div>

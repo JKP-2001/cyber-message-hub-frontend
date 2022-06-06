@@ -5,15 +5,17 @@ import Card from './Card'
 
 const ItemCard = (props) => {
     const Navigate = useNavigate()
-    const { likes, postComment } = useContext(ItemContext);
+    const { likes, postComment, shareItem, unshareItem } = useContext(ItemContext);
     const [nlike, setNLike] = useState(props.likes);
     const [liked, setLiked] = useState(false);
+    const [shared, setShared] = useState(false);
     const [like, setLike] = useState([]);
     const [showComment, setShowComment] = useState(false);
     const [comment, setComment] = useState([]);
     const [ncomment, setnComment] = useState();
     const [opacity, setOpacity] = useState(0.5);
     const [commentText, setCommentText] = useState("");
+    const [seeImages, setSeeImages] = useState(false);
     // const [pike, setpi]
 
 
@@ -21,10 +23,12 @@ const ItemCard = (props) => {
         setLike(props.xy);
         setComment(props.comments);
         setnComment(props.comments.length)
+
     })
 
     useEffect(() => {
         setLiked(props.isLiked);
+        setShared(props.isShared)
     }, [like])
 
 
@@ -50,8 +54,20 @@ const ItemCard = (props) => {
 
     const closecommentModal = () => {
         setSelectedCommentItem([]);
-        setShowComment(true);
+        setShowComment(false);
     }
+
+
+    const expandImageModal = () => {
+        // setSelectedItem(like);
+        setSeeImages(true);
+    }
+
+    const closeImageModal = () => {
+        // setSelectedItem([]);
+        setSeeImages(false);
+    }
+
 
 
 
@@ -84,6 +100,29 @@ const ItemCard = (props) => {
     }
 
 
+    const handleSaved = async () => {
+        const x = await shareItem(props.idx);
+        if (x === 200) {
+            setShared(true);
+            props.showAlert("success", "Post Saved Successfully", 3000);
+        }
+        else if (x === 406) {
+            props.showAlert("danger", "Can't Share Your Own Posts.", 3000);
+        }
+    }
+
+
+    const handleUnSaved = async () => {
+        const x = await unshareItem(props.idx);
+        if (x === 200) {
+            setShared(false);
+            props.changeSharedLength()
+            props.showAlert("success", "Post UnSaved Successfully", 3000);
+
+        }
+    }
+
+
     const postComments = () => {
         setCommentText("");
         const x = {
@@ -111,13 +150,40 @@ const ItemCard = (props) => {
 
                         <div className="post">
                             <div className="info">
-                                <div className="user">
-                                    <div className="profile-pic"><img src="" alt=""/></div>
-                                    <p className="username">modern_web_channel</p>
+                                < div className="user">
+                                    <img className="my-2" src={props.address} style={{ "width": "40px", "height": "40px", borderRadius: "50%", padding: '0' }} alt="" />
+                                    <p className="username my-2">{props.creator}</p>
                                 </div>
-                                <img src="img/option.PNG" className="options" alt=""/>
+                                <img src="img/option.PNG" className="options" alt="" />
                             </div>
-                            <img src={props.address} className="post-image" alt="" />
+                            <img src={props.address} className="post-image" alt="" style={{ "cursor": "pointer" }} data-toggle="modal" data-target="#staticBackdrop3" onClick={expandImageModal} />
+                            {seeImages && <div className="modal fade" id="staticBackdrop3" data-backdrop="static" tabIndex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                <div className="modal-dialog modal-xl" style={{"width":"1250px;"}} role="document">
+                                    <div className="modal-content">
+                                        <div className="modal-header">
+                                            <h4 className="modal-title mx-2" id="staticBackdropLabel">Likes</h4>
+                                            <button type="button" className="close" data-dismiss="modal" aria-label="Close" onClick={closeModal}>
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+
+                                        <div className="modal-body">
+                                            <div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel">
+                                                <div class="carousel-inner">
+                                                    <div class="carousel-item active">
+                                                        <img class="d-block w-100" src={props.address} alt="First slide"/>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div className="modal-footer" >
+                                            <button type="button" className="btn btn-secondary" data-dismiss="modal" onClick={closeImageModal} >Close</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>}
+
+
                             <div className="post-content">
                                 <div className="reaction-wrapper">
                                     {/* <i className="fa-duotone fa-heart"></i> */}
@@ -126,8 +192,9 @@ const ItemCard = (props) => {
                                     {/* <i className='fa fa-heart red-color icon-3x'></i> */}
                                     {/* <img src="img/1.svg " style={{"background":"red"}} onClick={handleClick} className="icon" alt=""/> */}
                                     <span className={`bi ${liked ? "bi-heart-fill red-color" : "bi-heart"}`} style={{ "fontSize": "25px", "cursor": "pointer" }} onClick={handleClick}> </span>
-                                    <i className="bi bi-chat mx-3" style={{ "fontSize": "25px", "cursor": "pointer" }} ></i>
+                                    <i className="bi bi-chat mx-3" style={{ "fontSize": "25px", "cursor": "pointer" }} data-toggle="modal" data-target="#staticBackdrop2" onClick={expandcommentModal}></i>
                                     <i className="bi bi-share" style={{ "fontSize": "25px" }}></i>
+                                    <i class={`bi ${shared ? "bi-save-fill black-color  save icon" : "bi-save save icon"}`} style={{ "fontSize": "20px", "cursor": "pointer" }} onClick={!shared ? handleSaved : handleUnSaved}></i>
                                 </div>
 
 
@@ -167,6 +234,11 @@ const ItemCard = (props) => {
                                         </div>
                                     </div>
                                 </div>}
+
+
+
+
+
 
 
                                 <p style={{ "cursor": "pointer" }} data-toggle="modal" data-target="#staticBackdrop2" onClick={expandcommentModal}>

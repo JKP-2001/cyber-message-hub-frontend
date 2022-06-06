@@ -11,6 +11,7 @@ const SharedItem = (props) => {
   const {shared,email,getUser,getUserSharedPosts} = useContext(AuthContext)
 //   const {} = useContext(AuthContext)
   const[loading,setLoading] = useState(false);
+  const [shareLength,setSharedLength] = useState(0);
   // const [email,setEmail] = useState();
 
   useEffect(() => {
@@ -24,15 +25,23 @@ const SharedItem = (props) => {
     }
 
 
-  },[shared])
-  // console.log(localStorage.getItem('token'))
+  },[shareLength])
+
+  useEffect(()=>{
+    setSharedLength(shared.length)
+  },[])
+
+  const changeSharedLength = ()=>{
+    setSharedLength(shareLength-1);
+  }
+   // console.log(localStorage.getItem('token'))
   // localStorage.removeItem('token');
 
   return (
-    <>
+    <>  
       <Loader loading={loading} message=""/>
       <div className="container my-2"><h1>Shared Posts</h1></div>
-      
+        {console.log(shared)}
         <div className="container my-3">
           {/* {console.log(shared)} */}
           {shared.map((item,i) => {
@@ -79,8 +88,9 @@ const SharedItem = (props) => {
             // console.log(z);
             // console.log(item.comments);
             // console.log(pp);
+            console.log(pp);
             if(pp!==-1){
-                return (<ItemCard title={item.name} description={item.description} address={url} key={i} creator={first} date={item.creation_date} creator_mail={item.creatorMail} likes={item.liked_by.length} idx={item._id} isLiked={z===-1?false:true} isShared={pp===-1?false:true} status={status} xy = {item.liked_by} comments={item.comments} setAlert={props.showAlert}/>)
+                return(<ItemCard title={item.name} description={item.description} address={url} key={i} creator={first} date={item.creation_date} creator_mail={item.creatorMail} likes={item.liked_by.length} idx={item._id} isLiked={z===-1?false:true} status={status} xy={item.liked_by} comments={item.comments} tag={item.tag} user_email={email} showAlert={props.showAlert} isShared={true} changeSharedLength={changeSharedLength}/>)
             }
           })}
         

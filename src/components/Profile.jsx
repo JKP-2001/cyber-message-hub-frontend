@@ -10,6 +10,7 @@ const Profile = (props) => {
     const { userItem, getUserItem } = useContext(ItemContext);
     const [loading,setLoading] = useState(false);
     const {email,getUser} = useContext(AuthContext)
+    const [userItemLength,setLength] = useState(0);
     useEffect(() => {
         if (!localStorage.getItem('token')) {
             Navigate("/login")
@@ -21,7 +22,17 @@ const Profile = (props) => {
             setLoading(false)
             // console.log(items)
         }
-    },[]);
+    },[userItemLength]);
+
+
+    useEffect(() => {
+      setLength(userItem.length);
+    })
+
+
+    const changeLength = ()=>{
+      setLength(userItemLength-1);
+    }
 
     if(userItem.length>0){
         return (
@@ -74,7 +85,7 @@ const Profile = (props) => {
 
             // console.log(z);
             // console.log(item.comments);
-            return (<ItemCardForProf title={item.name} description={item.description} tag={item.tag} address={url} key={item._id} creator={first} date={item.creation_date} creator_mail={item.creatorMail} likes={item.liked_by.length} idx={item._id} isLiked={z===-1?false:true} status={status} xy = {item.liked_by} comments={item.comments} user_email={email} showAlert={props.showAlert}/>)
+            return (<ItemCardForProf title={item.name} description={item.description} tag={item.tag} address={url} key={item._id} creator={first} date={item.creation_date} creator_mail={item.creatorMail} likes={item.liked_by.length} idx={item._id} isLiked={z===-1?false:true} status={status} xy = {item.liked_by} comments={item.comments} user_email={email} showAlert={props.showAlert} userItem={userItem} changeLength={changeLength}/>)
             
                 
               })}

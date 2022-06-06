@@ -63,7 +63,7 @@ const Navbar = () => {
                             
                             <div class="dropdown-divider"></div>
                             <Link class="dropdown-item" to="/your-posts">Own Posts</Link>
-                            <Link class="dropdown-item" to="/sharedpost">Saved Posts</Link>
+                            <Link class="dropdown-item" to="/sharedposts">Saved Posts</Link>
                         </div>
                     </li>
 

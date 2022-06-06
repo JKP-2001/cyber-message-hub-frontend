@@ -104,7 +104,7 @@ const AuthState = (props) => {
             },
         });
         const json = await response.json();
-        setShared(json);
+        setShared(json.reverse());
     }
     
 

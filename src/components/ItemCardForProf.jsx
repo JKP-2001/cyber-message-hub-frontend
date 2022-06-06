@@ -4,10 +4,12 @@ import ItemContext from '../Context/ItemContext/ItemContext'
 import Card from './Card'
 import EditPost from './EditPost'
 import axios from "axios"
+import AuthContext from "../Context/LoginContext/AuthContext"
 
 const ItemCardForProf = (props) => {
     const Navigate = useNavigate()
-    const { likes, deleteItem } = useContext(ItemContext);
+    const { likes, deleteItem,getUserItem,userItem} = useContext(ItemContext);
+    
     const [nlike, setNLike] = useState(props.likes);
     const [liked, setLiked] = useState(false);
     const [like, setLike] = useState([]);
@@ -84,6 +86,9 @@ const ItemCardForProf = (props) => {
         setLiked(props.isLiked);
     }, [like])
 
+    useEffect(()=>{
+        getUserItem();
+    },[userItem.length])
 
 
     const [selectedItem, setSelectedItem] = useState([])
@@ -136,6 +141,12 @@ const ItemCardForProf = (props) => {
     const handleDelete = async () => {
         const y = await (deleteItem(props.idx));
         if (y === 200) {
+            // for(let i=0;i<props.userItem.length;i++){
+            //     if(props.userItem[i]._id === props.idx){
+            //         props.userItem.slice(i,1);
+            //     }
+            // 
+            props.changeLength();
             props.showAlert("success", "Item Deleted Successfully.", 3000);
         }
         else if (y === 400) {
@@ -209,7 +220,7 @@ const ItemCardForProf = (props) => {
                                                     </div>
 
                                                     <div className="form-group my-2">
-                                                        <label htmlFor="text" style={{ "color": "black" }}>Tag*</label>
+                                                        <label htmlFor="text" style={{ "color": "black" }}>Location*</label>
                                                         <input type="text" className="form-control" style={{ "color": "black" }} id="name" name="tag" value={item.tag} onChange={change} placeholder="Tag" />
                                                     </div>
 

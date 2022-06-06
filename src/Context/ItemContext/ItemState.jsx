@@ -59,6 +59,7 @@ const ItemState = (props) => {
                 'auth-token': localStorage.getItem('token')
             },
         });
+        return(response.status)
     }
 
 
@@ -70,6 +71,7 @@ const ItemState = (props) => {
                 'auth-token': localStorage.getItem('token')
             },
         });
+        return(response.status)
     }
 
     

@@ -74,7 +74,7 @@ const AddNewPost = (props) => {
                 </div>
 
                 <div className="form-group my-2">
-                    <label htmlFor="text" style={{ "color": "white" }}>Tag*</label>
+                    <label htmlFor="text" style={{ "color": "white" }}>Location*</label>
                     <input type="text" className="form-control" id="name" name="tag" value={item.tag} onChange={change} placeholder="Tag" />
                 </div>
 
