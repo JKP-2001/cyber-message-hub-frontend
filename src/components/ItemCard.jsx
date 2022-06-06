@@ -158,7 +158,7 @@ const ItemCard = (props) => {
                             </div>
                             <img src={props.address} className="post-image" alt="" style={{ "cursor": "pointer" }} data-toggle="modal" data-target="#staticBackdrop3" onClick={expandImageModal} />
                             {seeImages && <div className="modal fade" id="staticBackdrop3" data-backdrop="static" tabIndex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                                <div className="modal-dialog modal-xl" style={{"width":"1250px;"}} role="document">
+                                <div className="modal-dialog modal-xl" style={{ "width": "1250px;" }} role="document">
                                     <div className="modal-content">
                                         <div className="modal-header">
                                             <h4 className="modal-title mx-2" id="staticBackdropLabel">Likes</h4>
@@ -166,15 +166,7 @@ const ItemCard = (props) => {
                                                 <span aria-hidden="true">&times;</span>
                                             </button>
                                         </div>
-
                                         <div className="modal-body">
-                                            <div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel">
-                                                <div class="carousel-inner">
-                                                    <div class="carousel-item active">
-                                                        <img class="d-block w-100" src={props.address} alt="First slide"/>
-                                                    </div>
-                                                </div>
-                                            </div>
                                         </div>
                                         <div className="modal-footer" >
                                             <button type="button" className="btn btn-secondary" data-dismiss="modal" onClick={closeImageModal} >Close</button>

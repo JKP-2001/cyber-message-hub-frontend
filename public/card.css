@@ -171,8 +171,13 @@ color:yellow;
 }
 
 
-
 .modal-dialog {
-  max-width: 1100px;
-  margin: 2rem auto;
+  max-width: 600px;
+  height:auto;
+}
+
+
+.modal-dialogx {
+  max-width: 800px;
+  height:auto;
 }

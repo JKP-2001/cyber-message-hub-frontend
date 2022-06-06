@@ -48,9 +48,9 @@ const AddNewPost = (props) => {
 
     const imgChange = (e) => {
         e.preventDefault();
-        // setImg(e.target.files[0]);
-        console.log(e.target.files[0]);
-        setImg(e.target.files[0])
+        setImg(e.target.files[0]);
+        console.log(e.target.files);
+        // setImg([...]);
     }
 
 
@@ -80,8 +80,8 @@ const AddNewPost = (props) => {
 
                 <div className="form-group my-4">
                     <div className="mb-3">
-                        <label for="formFile" className="form-label" style={{ "color": "white" }}>Choose Image*</label>
-                        <input className="form-control" type="file" id="formFile" name="image" onChange={imgChange} />
+                        <label for="formFile" className="form-label" style={{ "color": "white" }} >Choose Image*</label>
+                        <input className="form-control" type="file" id="formFile" name="image" onChange={imgChange} multiple="multiple"/>
                     </div>
                 </div>
 
