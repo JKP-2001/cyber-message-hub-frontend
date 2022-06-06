@@ -39,7 +39,7 @@ const ItemCardForProf = (props) => {
         setLoading(true);
         axios({
             method: "patch",
-            url: (`https://cross-origin-web.herokuapp.com/register/api/item/uploads/edit/${props.idx}`),
+            url: (`https://cross-origin-web.herokuapp.com/api/item/uploads/edit/${props.idx}`),
             data: formData,
             headers: { "Content-Type": "multipart/form-data", 'auth-token': localStorage.getItem('token') },
         })
