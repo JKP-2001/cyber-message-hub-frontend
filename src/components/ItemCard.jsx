@@ -155,18 +155,20 @@ const ItemCard = (props) => {
                                     <p className="username my-2">{props.creator}</p>
                                 </div>
                                 <img src="img/option.PNG" className="options" alt="" />
+                                
                             </div>
                             <img src={props.address} className="post-image" alt="" style={{ "cursor": "pointer" }} data-toggle="modal" data-target="#staticBackdrop3" onClick={expandImageModal} />
                             {seeImages && <div className="modal fade" id="staticBackdrop3" data-backdrop="static" tabIndex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                                <div className="modal-dialog modal-xl" style={{ "width": "1250px;" }} role="document">
+                                <div className="modal-dialog modal-xl" style={{ "max-width": "1000px;" }} role="document">
                                     <div className="modal-content">
                                         <div className="modal-header">
-                                            <h4 className="modal-title mx-2" id="staticBackdropLabel">Likes</h4>
+                                            <h4 className="modal-title mx-2" id="staticBackdropLabel">Content</h4>
                                             <button type="button" className="close" data-dismiss="modal" aria-label="Close" onClick={closeModal}>
                                                 <span aria-hidden="true">&times;</span>
                                             </button>
                                         </div>
                                         <div className="modal-body">
+                                        <img src={props.address} className="post-image" alt="" style={{ "cursor": "pointer" }} data-toggle="modal" data-target="#staticBackdrop3" onClick={expandImageModal}  />
                                         </div>
                                         <div className="modal-footer" >
                                             <button type="button" className="btn btn-secondary" data-dismiss="modal" onClick={closeImageModal} >Close</button>

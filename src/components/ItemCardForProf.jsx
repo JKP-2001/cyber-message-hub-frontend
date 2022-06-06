@@ -18,6 +18,7 @@ const ItemCardForProf = (props) => {
     const [data, setData] = useState();
     const [modal_name, setName] = useState();
     const [edit, setEdit] = useState(false);
+    const [seeImages, setSeeImages] = useState(false);
 
 
     const [itemData,setItemData] = useState({title:props.title,description:props.description, tag:props.tag, address:props.address})
@@ -38,7 +39,7 @@ const ItemCardForProf = (props) => {
         setLoading(true);
         axios({
             method: "patch",
-            url: (`http://localhost:5000/api/item/uploads/edit/${props.idx}`),
+            url: (`https://cross-origin-web.herokuapp.com/register/api/item/uploads/edit/${props.idx}`),
             data: formData,
             headers: { "Content-Type": "multipart/form-data", 'auth-token': localStorage.getItem('token') },
         })
@@ -74,6 +75,16 @@ const ItemCardForProf = (props) => {
         setImg(e.target.files[0])
     }
 
+
+    const expandImageModal = () => {
+        // setSelectedItem(like);
+        setSeeImages(true);
+    }
+
+    const closeImageModal = () => {
+        // setSelectedItem([]);
+        setSeeImages(false);
+    }
 
     
 
@@ -277,7 +288,25 @@ const ItemCardForProf = (props) => {
 
 
                             </div>
-                            <img src={itemData.address} className="post-image" alt="" />
+                            <img src={itemData.address} className="post-image" alt="" style={{ "cursor": "pointer" }} data-toggle="modal" data-target="#staticBackdrop3" onClick={expandImageModal} />
+                            {seeImages && <div className="modal fade" id="staticBackdrop3" data-backdrop="static" tabIndex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                <div className="modal-dialog modal-xl" style={{ "max-width": "1000px;" }} role="document">
+                                    <div className="modal-content">
+                                        <div className="modal-header">
+                                            <h4 className="modal-title mx-2" id="staticBackdropLabel">Content</h4>
+                                            <button type="button" className="close" data-dismiss="modal" aria-label="Close" onClick={closeModal}>
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div className="modal-body">
+                                        <img src={itemData.address} className="post-image" alt="" style={{ "cursor": "pointer" }} data-toggle="modal" data-target="#staticBackdrop3" onClick={expandImageModal}  />
+                                        </div>
+                                        <div className="modal-footer" >
+                                            <button type="button" className="btn btn-secondary" data-dismiss="modal" onClick={closeImageModal} >Close</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>}
                             <div className="post-content">
                                 <div className="reaction-wrapper">
                                     {/* <i className="fa-duotone fa-heart"></i> */}

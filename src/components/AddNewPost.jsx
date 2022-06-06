@@ -21,7 +21,7 @@ const AddNewPost = (props) => {
         setLoading(true);
         axios({
             method: "post",
-            url: "http://localhost:5000/api/item/uploads/newItem",
+            url: "https://cross-origin-web.herokuapp.com/uploads/newItem",
             data: formData,
             headers: { "Content-Type": "multipart/form-data", 'auth-token': localStorage.getItem('token') },
         })
