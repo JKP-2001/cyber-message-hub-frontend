@@ -46,7 +46,7 @@ const SharedItem = (props) => {
           {/* {console.log(shared)} */}
           {shared.map((item,i) => {
             // const url = "https://cross-origin-web.herokuapp.com/" + item.img_address
-            const url = "https://cross-origin-web.herokuapp.com/" + item.img_address
+            const url = "http://localhost:5000/" + item.img_address
             var today = new Date();
             var dt = new Date(item.getFull);
             var currHour = today.getHours(); var hour = dt.getHours();

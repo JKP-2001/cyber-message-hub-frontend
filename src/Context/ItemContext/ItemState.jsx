@@ -3,8 +3,8 @@ import ItemContext from "./ItemContext"
 
 const ItemState = (props) => {
 
-    // const url = "http://localhost:5000/api/item/uploads"
-    const url = "https://cross-origin-web.herokuapp.com/api/item/uploads";
+    const url = "http://localhost:5000/api/item/uploads"
+    // const url = "https://cross-origin-web.herokuapp.com/api/item/uploads";
 
     const initialItem = [];
     const [items, setItems] = useState(initialItem);

@@ -39,7 +39,7 @@ const ItemCardForProf = (props) => {
         setLoading(true);
         axios({
             method: "patch",
-            url: (`https://cross-origin-web.herokuapp.com/api/item/uploads/edit/${props.idx}`),
+            url: (`http://localhost:5000/api/item/uploads/edit/${props.idx}`),
             data: formData,
             headers: { "Content-Type": "multipart/form-data", 'auth-token': localStorage.getItem('token') },
         })
@@ -47,7 +47,7 @@ const ItemCardForProf = (props) => {
                 //handle success
                 console.log(response);
                 setLoading(false);
-                setItemData({title:item.title,description:item.description,tag:item.tag,address:response.data.url[0]})
+                setItemData({title:item.title,description:item.description,tag:item.tag,address:response.data.url})
                 submitClose.current.click();
                 props.showAlert("success","Item Updated Successfully",3000);
                 
