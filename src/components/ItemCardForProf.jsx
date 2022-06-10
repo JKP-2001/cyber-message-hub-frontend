@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect, useRef } from 'react'
+import React,{useState,useEffect, useContext, useRef} from 'react'
 import { useNavigate } from 'react-router-dom'
 import ItemContext from '../Context/ItemContext/ItemContext'
 import Card from './Card'
@@ -200,7 +200,7 @@ const ItemCardForProf = (props) => {
                         <div className="post">
                             <div className="info">
                                 <div className="user">
-                                    <div className="profile-pic"><img src="" alt="" /></div>
+                                <img className="my-2" src={props.address} style={{ "width": "40px", "height": "40px", borderRadius: "50%", padding: '0' }} alt="" />
                                     <p className="username">{props.creator}</p>
                                 </div>
 

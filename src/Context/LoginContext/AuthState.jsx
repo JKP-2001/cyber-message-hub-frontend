@@ -53,7 +53,9 @@ const AuthState = (props) => {
             body: JSON.stringify({email,password})
         });
         const json = await response.json();
-        localStorage.setItem("token", json.token);
+        if(response.status === 200){
+            localStorage.setItem("token", json.token);
+        }
         return (response.status);
     }
 
@@ -92,7 +94,12 @@ const AuthState = (props) => {
             },
         });
         const json = await response.json();
-        setemail(json.mail);
+        if(response.status === 200){
+            setemail(json.mail);
+        }
+        else{
+            setemail("");
+        }
         // console.log(json);
     }
 

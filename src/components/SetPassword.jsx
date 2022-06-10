@@ -37,7 +37,7 @@ const SetPassword = (props) => {
         <div className="container my-3">
             <Loader loading={loading} message={"Loading"}/>
             <h1 style={{"color":"white"}}>{props.message}</h1>
-            <form className="my-2" style={{"width":"50%"}}>
+            <form className="my-2" style={{"width":"100%"}}>
                 <div className="form-group">
                     <label htmlFor="exampleInputPassword1" style={{"color":"white"}}>Password*</label>
                     <input type="password" className="form-control" id="exampleInputPassword1" name="password" value={password.password} placeholder="Password" onChange={change} />

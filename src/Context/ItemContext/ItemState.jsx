@@ -7,8 +7,10 @@ const ItemState = (props) => {
     // const url = "https://cross-origin-web.herokuapp.com/api/item/uploads";
 
     const initialItem = [];
+    
     const [items, setItems] = useState(initialItem);
     const [userItem,setUserItem] = useState(initialItem);
+    const [item,setItem] = useState(initialItem);
 
     const getItem = async () => {
         const response = await fetch(`${url}/all`, {
@@ -29,7 +31,6 @@ const ItemState = (props) => {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
-                
                 'auth-token': localStorage.getItem('token')
             },
             
@@ -100,9 +101,20 @@ const ItemState = (props) => {
         });
     }
 
+    const getParticularItem = async(id)=>{
+        const response = await fetch(`${url}/${id}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        });
+        const json = await response.json();
+        setItem(json)
+    }
+
    
 
-    return (<ItemContext.Provider value={{items,userItem,getUserItem,getItem,likes,shareItem,unshareItem,deleteItem,postComment}} >
+    return (<ItemContext.Provider value={{items,userItem,item,getUserItem,getItem,likes,shareItem,unshareItem,deleteItem,postComment,getParticularItem}} >
         {props.children}
     </ItemContext.Provider>)
 }

@@ -24,6 +24,9 @@ import Profile from "./components/Profile";
 import AddNewPost from "./components/AddNewPost";
 import SharedItem from "./components/SharedItem";
 
+import SingleItem from "./components/SingleItem";
+import PorfilePage from "./components/PorfilePage";
+
 function App() {
   const [alert, setAlert] = useState(null);
   const showAlert = (type, message, time) =>
@@ -41,7 +44,7 @@ function App() {
     <AuthState>
       <ItemState>
         <Router>
-          <Navbar />
+          <Navbar showAlert={showAlert}/>
           <Alert alert={alert} />
           <Routes>
             <Route path="/about" element={<About showAlert={showAlert} />} />
@@ -55,6 +58,8 @@ function App() {
             <Route path ="/your-posts" element={<Profile showAlert={showAlert} />} />
             <Route path ="/newPost" element={<AddNewPost showAlert={showAlert} />} />
             <Route path="/sharedposts" element={<SharedItem showAlert={showAlert} />} />
+            <Route path="/post/:id" element={<SingleItem showAlert={showAlert}  />} />
+            <Route path="/profile" element={<PorfilePage showAlert={showAlert}  />} />
           </Routes>
         </Router >
       </ItemState>

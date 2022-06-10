@@ -25,6 +25,11 @@ const Login = (props) => {
       props.showAlert("danger","The password that you've entered is incorrect.",5000);
       setCred({email:cred.email,password:""});
     }
+
+    else if(x===404){ 
+      props.showAlert("danger","Please Enter A Valid Email.",5000);
+
+    }
     else{
       // props.showAlert("success","Successfully Logged In",5000);
       Navigate("/")

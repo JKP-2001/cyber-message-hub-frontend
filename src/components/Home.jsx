@@ -12,6 +12,7 @@ const Home = (props) => {
   const {email,getUser} = useContext(AuthContext)
   const[loading,setLoading] = useState(false);
   // const [email,setEmail] = useState();
+  console.log("items",items);
   
 
   useEffect(() => {
@@ -27,7 +28,23 @@ const Home = (props) => {
     }
 
 
-  },[])
+  },[items.length])
+
+
+  useEffect(() => {
+    if (!localStorage.getItem('token')) {
+      Navigate("/login")
+    }
+    else { 
+      getItem();
+
+    }
+
+
+  },[items.length])
+
+
+  
   // console.log(localStorage.getItem('token'))
   // localStorage.removeItem('token');
   

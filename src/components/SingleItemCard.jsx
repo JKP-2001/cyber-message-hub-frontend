@@ -1,9 +1,10 @@
-import React, { useState, useContext, useEffect, useRef } from 'react'
+import React, { useState, useContext, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import ItemContext from '../Context/ItemContext/ItemContext'
 import Card from './Card'
-import copy from "copy-to-clipboard"
-const ItemCard = (props) => {
+import "../card.css"
+
+const SingleItemCard = (props) => {
     const Navigate = useNavigate()
     const { likes, postComment, shareItem, unshareItem } = useContext(ItemContext);
     const [nlike, setNLike] = useState(props.likes);
@@ -16,15 +17,10 @@ const ItemCard = (props) => {
     const [opacity, setOpacity] = useState(0.5);
     const [commentText, setCommentText] = useState("");
     const [seeImages, setSeeImages] = useState(false);
-    const [showShare, setShowShare] = useState(false);
+    const [isLoggedIn, setIsLoggedIn] = useState(props.isLoggedIn);
     // const [pike, setpi]
-    const [postUrl,setPostUrl] = useState(`http://localhost:3000/post/${props.idx}`)
-    const [isCopied,setIsCopied] = useState(false);
-    const [Copy_Text,setText] = useState("Copy Text");
 
-    
 
-    const ref = useRef();
 
     useEffect(() => {
         setLike(props.xy);
@@ -45,8 +41,10 @@ const ItemCard = (props) => {
     const [show, setShow] = useState(false);
 
     const expandModal = () => {
-        setSelectedItem(like);
-        setShow(true);
+        
+            setSelectedItem(like);
+            setShow(true);
+        
     }
 
     const closeModal = () => {
@@ -79,26 +77,31 @@ const ItemCard = (props) => {
 
 
     const handleClick = async () => {
-        if (liked === true) {
-            setLiked(false);
-            setNLike(nlike - 1);
-            for (let i = 0; i < like.length; i++) {
-                if (props.user_email === like[i]) {
-                    like.splice(i, 1);
-                    setLike(like);
-                    break;
-                }
-            }
-
+        if (!isLoggedIn) {
+            Navigate("/login");
         }
         else {
-            setLiked(true);
-            setNLike(nlike + 1);
-            like.push(props.user_email)
-            setLike(like);
+            if (liked === true) {
+                setLiked(false);
+                setNLike(nlike - 1);
+                for (let i = 0; i < like.length; i++) {
+                    if (props.user_email === like[i]) {
+                        like.splice(i, 1);
+                        setLike(like);
+                        break;
+                    }
+                }
 
+            }
+            else {
+                setLiked(true);
+                setNLike(nlike + 1);
+                like.push(props.user_email)
+                setLike(like);
+
+            }
+            likes(props.idx);
         }
-        likes(props.idx);
     }
 
     const changeComment = (e) => {
@@ -108,13 +111,18 @@ const ItemCard = (props) => {
 
 
     const handleSaved = async () => {
-        const x = await shareItem(props.idx);
-        if (x === 200) {
-            setShared(true);
-            props.showAlert("success", "Post Saved Successfully", 3000);
+        if (!isLoggedIn) {
+            Navigate("/");
         }
-        else if (x === 406) {
-            props.showAlert("danger", "Can't Share Your Own Posts.", 3000);
+        else {
+            const x = await shareItem(props.idx);
+            if (x === 200) {
+                setShared(true);
+                props.showAlert("success", "Post Saved Successfully", 3000);
+            }
+            else if (x === 406) {
+                props.showAlert("danger", "Can't Share Your Own Posts.", 3000);
+            }
         }
     }
 
@@ -129,39 +137,26 @@ const ItemCard = (props) => {
         }
     }
 
-    const handleCopy = ()=>{
-        copy(postUrl)
-        setIsCopied(true);
-        setText("Copied");
-        ref.current.click();
-        props.showAlert("success", "Link Copied.",3000);
-    }
-
 
     const postComments = () => {
-        setCommentText("");
-        const x = {
-            "user_name": props.user_email,
-            "message": commentText,
+        if (!isLoggedIn) {
+            Navigate("/login")
         }
-        comment.push(x);
-        setComment(comment);
-        setnComment(ncomment + 1);
-        postComment(commentText, props.idx);
-        props.showAlert("success", "Comment Added Successfully", 3000);
+        else {
+            setCommentText("");
+            const x = {
+                "user_name": props.user_email,
+                "message": commentText,
+            }
+            comment.push(x);
+            setComment(comment);
+            setnComment(ncomment + 1);
+            postComment(commentText, props.idx);
+            props.showAlert("success", "Comment Added Successfully", 3000);
+        }
     }
     // const [style,setStyle] = useState({""});
 
-
-    const expandShareModal = () => {
-        setShowShare(true);
-    }
-
-    const closeShareModal = () => {
-        setShowShare(false);
-        setIsCopied(false);
-        setText("Copy Text");
-    }
 
 
     return (
@@ -171,8 +166,6 @@ const ItemCard = (props) => {
             <section className="main">
                 <div className="wrapper">
                     <div className="left-col">
-
-
                         <div className="post">
                             <div className="info">
                                 < div className="user">
@@ -203,8 +196,6 @@ const ItemCard = (props) => {
                             </div>}
 
 
-
-
                             <div className="post-content">
                                 <div className="reaction-wrapper">
                                     {/* <i className="fa-duotone fa-heart"></i> */}
@@ -214,40 +205,10 @@ const ItemCard = (props) => {
                                     {/* <img src="img/1.svg " style={{"background":"red"}} onClick={handleClick} className="icon" alt=""/> */}
                                     <span className={`bi ${liked ? "bi-heart-fill red-color" : "bi-heart"}`} style={{ "fontSize": "25px", "cursor": "pointer" }} onClick={handleClick}> </span>
                                     <i className="bi bi-chat mx-3" style={{ "fontSize": "25px", "cursor": "pointer" }} data-toggle="modal" data-target="#staticBackdrop2" onClick={expandcommentModal}></i>
-                                    <i className="bi bi-share" style={{ "fontSize": "25px", "cursor": "pointer" }} data-toggle="modal" data-target="#staticBackdrop34" onClick={expandShareModal}></i>
+                                    <i className="bi bi-share" style={{ "fontSize": "25px" }}></i>
+                                    
                                     <i class={`bi ${shared ? "bi-bookmark-plus-fill black-color save icon":"bi-bookmark-plus save icon"}`} style={{ "fontSize": "20px", "cursor": "pointer" }} onClick={!shared ? handleSaved : handleUnSaved}></i>
                                 </div>
-
-
-
-
-
-                                {showShare && <div className="modal fade" id="staticBackdrop34" data-backdrop="static" tabIndex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                                    <div className="modal-dialog" role="document">
-                                        <div className="modal-content">
-                                            <div className="modal-header">
-                                                <h4 className="modal-title mx-2" id="staticBackdropLabel">Share</h4>
-                                                <button type="button" className="close" data-dismiss="modal" aria-label="Close" ref={ref} onClick={closeShareModal}>
-                                                    <span aria-hidden="true">&times;</span>
-                                                </button>
-                                            </div>
-
-                                            <div className="modal-body">
-
-                                                <div className="card my-2">
-                                                    <div className="card-body" style={{ "color": "black" }}>
-                                                        {postUrl}
-                                                        <button type="button" className="btn btn-outline-primary " style={{ "float": "right", "width": "25%" }} onClick={handleCopy} disabled={isCopied}>{Copy_Text}</button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div className="modal-footer" >
-                                                <button type="button" className="btn btn-secondary" data-dismiss="modal" ref={ref} onClick={closeShareModal} >Close</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>}
-
 
 
 
@@ -272,7 +233,6 @@ const ItemCard = (props) => {
                                                 {selectedItem.map((item, i) => {
                                                     return (
                                                         <div className="card my-2">
-                                                            
                                                             <div className="card-body" key={i + nlike} style={{ "color": "black" }}>
                                                                 {item}
                                                                 <button type="button" className="btn btn-outline-primary " style={{ "float": "right", "width": "25%" }}>Follow</button>
@@ -352,7 +312,5 @@ const ItemCard = (props) => {
     )
 }
 
-export default ItemCard;
 
-
-
+export default SingleItemCard
