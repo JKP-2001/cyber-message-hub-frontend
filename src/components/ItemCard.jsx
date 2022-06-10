@@ -18,7 +18,7 @@ const ItemCard = (props) => {
     const [seeImages, setSeeImages] = useState(false);
     const [showShare, setShowShare] = useState(false);
     // const [pike, setpi]
-    const [postUrl,setPostUrl] = useState(`http://localhost:3000/post/${props.idx}`)
+    const [postUrl,setPostUrl] = useState(`https://cyber-message-hub.herokuapp.com/post/${props.idx}`)
     const [isCopied,setIsCopied] = useState(false);
     const [Copy_Text,setText] = useState("Copy Text");
 

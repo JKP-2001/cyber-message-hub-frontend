@@ -7,6 +7,7 @@ const AuthState = (props) => {
     const [user, setUser] = useState([]);
     const [email,setemail] = useState("");
     const [shared,setShared] = useState([]);
+    const [userId,setUserId] = useState([]);
     
     // const change = (value)=>{
     //     setUser(value);
@@ -14,8 +15,8 @@ const AuthState = (props) => {
 
     // const url = "";
 
-    const url = "http://localhost:5000";
-    // const url = "https://cross-origin-web.herokuapp.com"
+    // const url = "http://localhost:5000";
+    const url = "https://cross-origin-web.herokuapp.com"
 
 
     const registerUser = async (name, email) => {
@@ -114,11 +115,25 @@ const AuthState = (props) => {
         const json = await response.json();
         setShared(json.reverse());
     }
+
+    const getUserId = async()=>{
+        const response = await fetch(`${url}/api/auth/getuser`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'auth-token': localStorage.getItem('token')
+            },
+        });
+        const json = await response.json();
+        const x = [];
+        x.push(json);
+        setUserId(x);
+    }
     
 
     
 
-    return (<AuthContext.Provider value={{email, shared,getUserSharedPosts,registerUser,setPassword, loginUser, sendResetEmail, resetPassword,getUser }}>
+    return (<AuthContext.Provider value={{email,userId,shared,getUserSharedPosts,registerUser,setPassword, loginUser, sendResetEmail, resetPassword,getUser,getUserId }}>
         {props.children}
     </AuthContext.Provider>
     )

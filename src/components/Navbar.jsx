@@ -26,13 +26,8 @@ const Navbar = (props) => {
 
 
     useEffect(() => {
-        if (!localStorage.getItem('token')) {
-          Navigate("/login")
-        }
-        else { 
           getItem();
-    
-        }
+
     
     
       },[newPost])
@@ -51,7 +46,8 @@ const Navbar = (props) => {
         setLoading(true);
         axios({
             method: "post",
-            url: "http://localhost:5000/api/item/uploads/newItem",
+            // url: "http://localhost:5000/api/item/uploads/newItem",
+            url: "https://cross-origin-web.herokuapp.com/api/item/uploads/newItem",
             data: formData,
             headers: { "Content-Type": "multipart/form-data", 'auth-token': localStorage.getItem('token') },
         })

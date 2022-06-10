@@ -40,8 +40,8 @@ const Profile = (props) => {
             <div className="container my-3">
             <Loader loading={loading} message=""/>
               {userItem.map((item) => {
-                  const url = "http://localhost:5000/" + item.img_address
-                  //   const url = "https://cross-origin-web.herokuapp.com";
+                  // const url = "http://localhost:5000/" + item.img_address
+                    const url = "https://cross-origin-web.herokuapp.com" + item.img_address;
                   var today = new Date();
                   var dt = new Date(item.getFull);
                   var currHour = today.getHours(); var hour = dt.getHours();

@@ -44,8 +44,8 @@ const SetPassword = (props) => {
                 </div>
 
                 <div className="form-group">
-                    <label htmlFor="exampleInputPassword1" style={{"color":"white"}}>Confirm Password*</label>
-                    <input type="password" className="form-control" id="exampleInputPassword1" name="Cpassword" value={password.Cpassword} placeholder="Confirm Password" onChange={change} />
+                    <label htmlFor="exampleInputPassword2" style={{"color":"white"}}>Confirm Password*</label>
+                    <input type="password" className="form-control" id="exampleInputPassword2" name="Cpassword" value={password.Cpassword} placeholder="Confirm Password" onChange={change} />
                 </div>
 
                 <button type="submit" className="btn btn-primary" onClick={submit} disabled={password.password.length>=8 & password.password === password.Cpassword?false:true}>Submit</button>
